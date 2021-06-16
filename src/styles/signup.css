@@ -1,0 +1,21 @@
+.signup {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.signup input {
+    height: 2px;
+    padding: 1rem;
+    outline: none;
+}
+
+.signup button {
+    width: 8rem;
+    height: 3rem;
+    padding: 0.5rem;
+    cursor: pointer;
+}
