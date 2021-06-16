@@ -32,7 +32,7 @@ export const signOutError = (error) => ({
 
 export const signUp = (email, password) => {
     return async function(dispatch) {
-        try{
+        try {
             await app.auth().createUserWithEmailAndPassword(email, password);
             dispatch(signUpSuccess());
         }catch(error) {
@@ -48,14 +48,14 @@ export const signIn = (email, password) => {
             dispatch(signInSuccess(userCredential.user.email));
         }
         catch(error) {
-            dispatch(signInError());
-            console.log(error.message);
+            dispatch(signInError(error.message));
         }
     } 
 }
 
 export const signOut = () => {
     return async function(dispatch) {
+        console.log('inside signOut')
         try {
             await app.auth().signOut();
             dispatch(signOutSuccess());

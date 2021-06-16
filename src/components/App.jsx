@@ -1,17 +1,20 @@
 import "../styles/app.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchInventoryFromFirebase, toggleAddInventoryForm, updateSelection } from "../redux/actions/inventoryAction";
+import { fetchInventoryFromFirebase } from "../redux/actions/inventoryAction";
+import { useEffect } from "react";
 import Nav from "./Nav";
 import AddInventory from "./AddInventory";
-import { useEffect } from "react";
+import DisplayInventory from "./DisplayInventory";
+import Category from "./Category";
 
 function App() {
     const dispatch = useDispatch();
     const { validated } = useSelector((state) => state.userState);
-    const { selected, open } = useSelector((state) => state.inventoryState);
+    const { open } = useSelector((state) => state.inventoryState);
 
     useEffect(() => {
         dispatch(fetchInventoryFromFirebase("/inventory/"));
+    // eslint-disable-next-line
     }, []);
 
     return (
@@ -19,37 +22,8 @@ function App() {
             <Nav />
             {validated ? (
                 <div className="container">
-                    <div className="head">
-                        <button onClick={() => dispatch(toggleAddInventoryForm())}>Add</button>
-                        <ul>
-                            <li
-                                onClick={() => dispatch(updateSelection("mobiles"))}
-                                className={
-                                    selected === "mobiles" ? "selected" : ""
-                                }
-                            >
-                                mobiles
-                            </li>
-                            <li
-                                onClick={() => dispatch(updateSelection("laptops"))}
-                                className={
-                                    selected === "laptops" ? "selected" : ""
-                                }
-                            >
-                                laptops
-                            </li>
-                            <li
-                                onClick={() => dispatch(
-                                    updateSelection("appliances")
-                                )}
-                                className={
-                                    selected === "appliances" ? "selected" : ""
-                                }
-                            >
-                                appliances
-                            </li>
-                        </ul>
-                    </div>
+                    <Category />
+                    <DisplayInventory />
                 </div>
             ) : null}
             {open ? <AddInventory /> : null}

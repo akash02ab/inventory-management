@@ -1,0 +1,28 @@
+.head {
+    display: flex;
+    justify-content: space-between;
+    padding: 3rem;
+    margin-top: 16vh;
+}
+
+.head > ul {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    list-style: none;
+}
+
+.head > ul > li {
+    cursor: pointer;
+}
+
+.selected {
+    text-decoration: underline;
+}
+
+.head button {
+    width: 4rem;
+    height: 2rem;
+    background: white;
+    cursor: pointer;
+}

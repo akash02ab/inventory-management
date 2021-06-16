@@ -1,6 +1,9 @@
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addInventoryToFirebase, toggleAddInventoryForm } from "../redux/actions/inventoryAction";
+import {
+    addInventoryToFirebase,
+    toggleAddInventoryForm,
+} from "../redux/actions/inventoryAction";
 import "../styles/addInventory.css";
 
 function AddInventory() {
@@ -13,17 +16,38 @@ function AddInventory() {
     const dispatch = useDispatch();
     const { selected } = useSelector((state) => state.inventoryState);
 
-    
     const submitHandler = () => {
-        dispatch(addInventoryToFirebase(`inventory/${selected}/${name.current.value.replaceAll(' ', '-')}`, {
-            name: name.current.value,
-            price: price.current.value,
-            description: description.current.value,
-            image: image.current.value,
-            quantity: quantity.current.value
-        }));
+        if (
+            name.current.value === "" ||
+            price.current.value === "" ||
+            description.current.value === "" ||
+            image.current.value === "" ||
+            quantity.current.value === ""
+        ) {
+            return;
+        }
+
+        if (isNaN(price.current.value) || isNaN(quantity.current.value)) {
+            return;
+        }
+
+        dispatch(
+            addInventoryToFirebase(
+                `inventory/${selected}/${name.current.value.replaceAll(
+                    " ",
+                    "-"
+                )}`,
+                {
+                    name: name.current.value,
+                    price: price.current.value,
+                    description: description.current.value,
+                    image: image.current.value,
+                    quantity: quantity.current.value,
+                }
+            )
+        );
         dispatch(toggleAddInventoryForm());
-    }
+    };
 
     return (
         <div className="add-inventory">
@@ -35,7 +59,7 @@ function AddInventory() {
             <input type="text" placeholder="quantity" ref={quantity} />
             <button onClick={submitHandler}>Submit</button>
         </div>
-    )
+    );
 }
 
 export default AddInventory;

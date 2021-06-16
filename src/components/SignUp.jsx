@@ -36,8 +36,8 @@ function SignUp() {
                     ref={repassword}
                     placeholder="re-enter password"
                 />
+                {signUpError ? <p className="error">{signUpError}</p> : null}
                 <button onClick={clickhandler}>Submit</button>
-                {signUpError ? <p>{signUpError}</p> : null}
             </div>
         </>
     );

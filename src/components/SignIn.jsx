@@ -36,7 +36,7 @@ function SignIn() {
                     placeholder="password"
                 />
                 <button onClick={clickhandler}>SignIn</button>
-                {signInError ? <p>{signInError}</p> : null}
+                {signInError ? <p className="error">{signInError}</p> : null}
                 <Link to="/signup">Create an account</Link>
             </div>
         </>

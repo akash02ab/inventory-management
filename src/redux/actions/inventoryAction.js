@@ -1,16 +1,6 @@
-import { ADD_MOBILE, DELETE_MOBILE, FETCH_INVENTORY_ERROR, FETCH_INVENTORY_INIT, FETCH_INVENTORY_SUCCESS, TOGGLE_OPEN, UPDATE_SELECTION } from ".";
+import { FETCH_INVENTORY_ERROR, FETCH_INVENTORY_INIT, FETCH_INVENTORY_SUCCESS, TOGGLE_OPEN, UPDATE_SELECTION } from ".";
 import app from "../store/firebaseConfig";
 const database = app.database();
-
-export const addMobile = (data) => ({
-    type: ADD_MOBILE,
-    payload: data
-});
-
-export const deleteMobile = (index) => ({
-    type: DELETE_MOBILE,
-    payload: index
-});
 
 export const updateSelection = (data) => ({
     type: UPDATE_SELECTION,
@@ -41,7 +31,6 @@ export const fetchInventoryFromFirebase = (instance) => {
 
         try{
             database.ref(instance).on("value", (snapshot) => {
-                console.log('asfjlaskfjaslkjf', snapshot.val())
                 if(snapshot) {
                     dispatch(getInventorySuccess(snapshot.val()));
                 }
@@ -54,7 +43,7 @@ export const fetchInventoryFromFirebase = (instance) => {
 
 export const addInventoryToFirebase = (instance, data) => {
     return async function(dispatch) {
-        try{
+        try {
             database.ref(instance).set(data);
         }catch(err) {
             console.error(err);
@@ -62,3 +51,12 @@ export const addInventoryToFirebase = (instance, data) => {
     }
 }
 
+export const removeItemFromFirebase = (instance) => {
+    return async function() {
+        try {
+            database.ref(instance).remove();
+        }catch(err) {
+            console.error(err);
+        }
+    }
+}

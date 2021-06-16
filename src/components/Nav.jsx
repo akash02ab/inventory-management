@@ -6,17 +6,18 @@ import { signOut } from "../redux/actions/userAction";
 function Nav() {
     const history = useHistory();
     const dispatch = useDispatch();
+    const {validated} = useSelector(state => state.userState);
 
     const _singIn = () => {
+        console.log('signin', typeof validated)
         history.push("/signin");
     }
 
     const _signOut = () => {
+        console.log('signout', typeof validated, validated)
         dispatch(signOut());
         history.push("/");
     }
-
-    const {validated} = useSelector(state => state.userState);
 
     return (
         <nav>
