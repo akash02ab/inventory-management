@@ -24,10 +24,12 @@ function AddInventory() {
             image.current.value === "" ||
             quantity.current.value === ""
         ) {
+            alert("Input Field can't be empty!");
             return;
         }
 
         if (isNaN(price.current.value) || isNaN(quantity.current.value)) {
+            alert("price and qunatity should be Number value");
             return;
         }
 
@@ -51,7 +53,7 @@ function AddInventory() {
 
     return (
         <div className="add-inventory">
-            <h3>{`Add ${selected}`}</h3>
+            <h3>{`Add ${selected}`} <span onClick={() => dispatch(toggleAddInventoryForm())}>X</span></h3>
             <input type="text" placeholder="name" ref={name} />
             <input type="text" placeholder="price" ref={price} />
             <input type="text" placeholder="description" ref={description} />
